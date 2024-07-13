@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "523530339165",
+    "project_id": "info-portal-300dd",
+    "storage_bucket": "info-portal-300dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:523530339165:android:fb6f5d6283258d046e5eb4",
+        "android_client_info": {
+          "package_name": "com.example.info_portal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZrYolma9f6f6LRo8aGzQnyqwyLvY3wLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

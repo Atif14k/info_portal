@@ -31,5 +31,6 @@
             "path": "pwsh",
             "icon": "terminal-powershell"
         }
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
