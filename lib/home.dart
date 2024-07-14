@@ -11,6 +11,10 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  TextEditingController name = TextEditingController();
+  TextEditingController age = TextEditingController();
+  TextEditingController location = TextEditingController();
+
   Stream? EmployeeStream;
 
   getonload() async {
@@ -44,12 +48,24 @@ class _HomepageState extends State<Homepage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "Name: " + ds["Name"],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: Colors.blue),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Name: " + ds["Name"],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        color: Colors.blue),
+                                  ),
+                                  GestureDetector(
+                                      onTap: () {
+                                        EditEmployeeDetail(ds["Id"]);
+                                      },
+                                      child: Icon(Icons.edit,
+                                          color: Colors.orange))
+                                ],
                               ),
                               Text(
                                 "Age: " + ds["Age"],
@@ -107,4 +123,95 @@ class _HomepageState extends State<Homepage> {
               children: [Expanded(child: allEmployeedetails())],
             )));
   }
+
+  Future EditEmployeeDetail(String id) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            content: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(Icons.cancel)),
+                      SizedBox(width: 60),
+                      Text(
+                        "Edit",
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text("Details",
+                          style: TextStyle(
+                              color: Colors.orange,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("Name",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: TextField(
+                        controller: name,
+                        decoration: InputDecoration(border: InputBorder.none),
+                        keyboardType: TextInputType.name,
+                      )),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  const Text("Age",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: TextField(
+                        controller: age,
+                        decoration: InputDecoration(border: InputBorder.none),
+                        keyboardType: TextInputType.number,
+                      )),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  const Text("Location",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: TextField(
+                        controller: location,
+                        decoration: InputDecoration(border: InputBorder.none),
+                        keyboardType: TextInputType.streetAddress,
+                      )),
+                ],
+              ),
+            ),
+          ));
 }
