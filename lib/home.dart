@@ -49,8 +49,6 @@ class _HomepageState extends State<Homepage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     "Name: " + ds["Name"],
@@ -59,11 +57,25 @@ class _HomepageState extends State<Homepage> {
                                         fontSize: 18,
                                         color: Colors.blue),
                                   ),
+                                  Spacer(),
                                   GestureDetector(
                                       onTap: () {
+                                        name.text = ds["Name"];
+                                        age.text = ds["Age"];
+                                        location.text = ds["Location"];
                                         EditEmployeeDetail(ds["Id"]);
                                       },
                                       child: Icon(Icons.edit,
+                                          color: Colors.orange)),
+                                  SizedBox(
+                                    width: 7,
+                                  ),
+                                  GestureDetector(
+                                      onTap: () async {
+                                        await DatabaseMethods()
+                                            .deleteEmployeeDetail(ds["Id"]);
+                                      },
+                                      child: Icon(Icons.delete,
                                           color: Colors.orange))
                                 ],
                               ),
@@ -173,7 +185,7 @@ class _HomepageState extends State<Homepage> {
                         keyboardType: TextInputType.name,
                       )),
                   const SizedBox(
-                    height: 40,
+                    height: 30,
                   ),
                   const Text("Age",
                       style:
@@ -192,7 +204,7 @@ class _HomepageState extends State<Homepage> {
                         keyboardType: TextInputType.number,
                       )),
                   const SizedBox(
-                    height: 40,
+                    height: 30,
                   ),
                   const Text("Location",
                       style:
@@ -210,6 +222,25 @@ class _HomepageState extends State<Homepage> {
                         decoration: InputDecoration(border: InputBorder.none),
                         keyboardType: TextInputType.streetAddress,
                       )),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            Map<String, dynamic> updateInfo = {
+                              "Name": name.text,
+                              "Age": age.text,
+                              "Id": id,
+                              "Location": location.text
+                            };
+                            await DatabaseMethods()
+                                .updateEmployeeDetail(updateInfo, id)
+                                .then((value) {
+                              Navigator.pop(context);
+                            });
+                          },
+                          child: Text("Update")))
                 ],
               ),
             ),
